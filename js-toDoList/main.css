@@ -1,0 +1,29 @@
+body {
+    margin: 2rem 5rem 0 5rem;
+}
+
+.container {
+    margin: 0;
+    padding: 0;
+}
+
+.todo {
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    list-style-type: none;
+}
+
+.complete {
+    color: lightgray;
+    text-decoration: line-through;
+}
+
+header input {
+    width: 70%;
+}
+
+header input::-webkit-input-placeholder {
+    color: gray;
+    font-weight: 150;
+}
