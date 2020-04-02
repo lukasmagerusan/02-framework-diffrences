@@ -3,34 +3,54 @@ import "./App.css";
 
 function App() {
 
-  const [title, setTitle] = useState('⚛️ React Todo App')
-  const [todo, setTodo] = useState('')
-  const [toDoList, setToDoList] = useState([])
+  const [newTodo, setNewTodo] = useState('')
+  const [todos, setTodos] = useState([])
 
-  function addToDo(event) {
-    event.preventDefault()
-    setToDoList([...toDoList, todo])
+  function todoChecked(index) {
+    const updateTodos = [...todos]
+    updateTodos[index].done = !updateTodos[index].done
+    setTodos(updateTodos)
   }
 
-  function removeToDo() { console.log("Es funktioniert") }
+  function newTodoChanged(event) {
+    setNewTodo(event.target.value)
+  }
+
+  function removeTodo(index) {
+    const updateTodos = [...todos]
+    updateTodos.splice(index, 1)
+    setTodos(updateTodos)
+    console.log(todos)
+  }
+
+  function submitToDo(formSubmitted) {
+    formSubmitted.preventDefault()
+    const updateTodos = [...todos]
+    setTodos([...todos, {
+      title: newTodo,
+      done: false
+    }])
+    setNewTodo('')
+  }
 
   return (
     <div>
-      <h1>{title}</h1>
-      <input type="text" value={todo} onChange={event => setTodo(event.target.value)} />
-      <button onClick={addToDo}>Hinzufügen</button>
+      <h1>⚛️ react-todo-app</h1>
+      <form onSubmit={submitToDo}>
+        <label>Neue Aufgabe!</label>
+        <input value={newTodo} type="text" onChange={newTodoChanged} />
+        <button type="submit">Aufgabe hinzufügen</button>
+      </form>
       <ul>
-        {
-          toDoList.map((item, i) => (
-            <div>
-              <li key={i}>
-                {item}
-              </li>
-              <button onClick={removeToDo()}>❌</button>
-            </div>
-          ))
-          //
-        }
+        {todos.map((todo, index) => {
+          return (
+            <li key={todo.title}>
+              <span className={todo.done ? "done" : ""}>{todo.title}</span>
+              <button type="checkbox" onClick={() => todoChecked(index)}>✅</button>
+              <button type="" onClick={() => removeTodo(index)}>❌</button>
+            </li>
+          )
+        })}
       </ul>
     </div>
   );
