@@ -5,9 +5,9 @@ function App() {
 
   const [newTodo, setNewTodo] = useState('')
   const [todos, setTodos] = useState([])
+  const updateTodos = [...todos]
 
   function todoChecked(index) {
-    const updateTodos = [...todos]
     updateTodos[index].done = !updateTodos[index].done
     setTodos(updateTodos)
   }
@@ -17,15 +17,12 @@ function App() {
   }
 
   function removeTodo(index) {
-    const updateTodos = [...todos]
     updateTodos.splice(index, 1)
     setTodos(updateTodos)
-    console.log(todos)
   }
 
   function submitToDo(formSubmitted) {
     formSubmitted.preventDefault()
-    const updateTodos = [...todos]
     setTodos([...todos, {
       title: newTodo,
       done: false
